@@ -1,1 +1,3 @@
-# MIT-Supercloud-Project (In Progress)
+# Datacenter Optimization Project
+
+### The Live Dashboard link is listed in the "About" section.
