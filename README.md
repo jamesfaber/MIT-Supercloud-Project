@@ -8,9 +8,9 @@
 
 #### Reports Folder: Contains the detailed final report for this project, and the original report for the MIT Supercloud Dataset
 
-#### Main Page: Contains this ReadMe file and miscellaneous files needed to build the live dashboard
+#### Main Page: Contains the ReadMe file and miscellaneous files needed to build the live dashboard
 
 
-#### Live Dashboard link to the Final Model (deployed via AWS): 
+#### Live Dashboard link to the Fully-Deployed Model (powered by AWS): 
 
 **[🚀 Launch Live Dashboard](https://mit-supercloud-project-fsmr8ymmy7znkwuul4dnaj.streamlit.app/)**
