@@ -305,7 +305,7 @@ else:
             
             hero_col1.metric(f"Prediction", f"{status_icon} {latest_job['prediction']}")
             hero_col2.metric("Model Confidence", latest_job['confidence_percentage'])
-            hero_col3.metric("Compute Time Saved", latest_job['Time Saved'])
+            hero_col3.metric("Compute Time Saved (HH:MM)", latest_job['Time Saved'])
             
             # Add a subtle footer for the secondary details
             st.caption(f"**Processed:** {latest_job['prediction_timestamp']} | **Actual End State:** {latest_job['Actual End State']} | **Job Duration:** {latest_job['duration']}")
