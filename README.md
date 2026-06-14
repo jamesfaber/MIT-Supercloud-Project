@@ -1,8 +1,10 @@
-# 🎛️ Datacenter Optimization Project
+# ⚡ Datacenter Optimization Project
 
-### The purpose of this project is to help reduce datacenter electricity consumption. 
+### The purpose of this project is to help reduce datacenter electricity consumption. The folder structure is as follows:
 
-#### The Final Project Report and all Jupyter Notebooks can be found in the "Files" folder.
+#### Main Page: contains ReadMe file and miscellaneous files needed to build the live dashboard
+
+#### A Final Project Report and all Jupyter Notebooks can be found in the "Files" folder.
 
 #### Live Dashboard link to the final model deployed via AWS: 
 
