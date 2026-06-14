@@ -2,13 +2,14 @@
 
 ### The purpose of this project is to help reduce datacenter electricity consumption. The folder structure is as follows:
 
-#### "Code" Folder: Contains all code written for this project in 6 Jupyter Notebooks.
+#### Code Folder: Contains all code written for this project in 6 Jupyter Notebooks.
 
-#### "Data" Folder: Contains a data dictionary, and the final dataset that was used to train the machine learning model.
+#### Data Folder: Contains a data dictionary, and the final dataset that was used to train the machine learning model.
 
-#### "Reports" Folder: Contains the detailed final report for this project, and the original report for the MIT Supercloud Dataset
+#### Reports Folder: Contains the detailed final report for this project, and the original report for the MIT Supercloud Dataset
 
 #### Main Page: Contains this ReadMe file and miscellaneous files needed to build the live dashboard
+
 
 #### Live Dashboard link to the Final Model (deployed via AWS): 
 
