@@ -320,7 +320,7 @@ else:
             'prediction_timestamp': 'Prediction Timestamp',
             'prediction': 'Prediction',
             'confidence_percentage': 'Model Confidence',
-            'duration': 'Actual Duration',
+            'duration': 'Actual Duration (HH:MM)',
             'id_job': 'Job ID',
             'allocated_cpus': "CPU's Used",
             'allocated_gpus': "GPU's Used",
