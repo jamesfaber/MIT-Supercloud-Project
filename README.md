@@ -4,10 +4,12 @@
 
 #### Code Folder: Contains all code written for this project in 6 Jupyter Notebooks.
 
-#### Main Page: contains ReadMe file and miscellaneous files needed to build the live dashboard
+#### Data Folder: Contains a data dictionary, and the final dataset that was used to train the machine learning model.
 
-#### A Final Project Report and all Jupyter Notebooks can be found in the "Files" folder.
+#### Reports Folder: Contains the detailed final report for this project, and the original report for the MIT Supercloud Dataset
 
-#### Live Dashboard link to the final model deployed via AWS: 
+#### Main Page: Contains this ReadMe file and miscellaneous files needed to build the live dashboard
+
+#### Live Dashboard link to the Final Model currently deployed via AWS: 
 
 **[🚀 Launch Live Dashboard](https://mit-supercloud-project-fsmr8ymmy7znkwuul4dnaj.streamlit.app/)**
