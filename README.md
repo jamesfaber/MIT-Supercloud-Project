@@ -6,7 +6,7 @@
 
 #### Data Folder: Contains a data dictionary, and the final dataset that was used to train the machine learning model.
 
-#### Reports Folder: Contains the detailed final report for this project, and the original report for the MIT Supercloud Dataset
+#### Reports Folder: Contains a detailed final report for this project, and the original report about the MIT Supercloud Dataset
 
 #### Main Page: Contains the ReadMe file and miscellaneous files needed to build the live dashboard
 
