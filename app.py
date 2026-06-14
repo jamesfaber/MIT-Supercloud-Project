@@ -305,7 +305,7 @@ else:
             
             hero_col1.metric(f"Prediction", f"{status_icon} {latest_job['prediction']}")
             hero_col2.metric("Model Confidence", latest_job['confidence_percentage'])
-            hero_col3.metric("Compute Time Saved (HH:MM)", latest_job['Time Saved'])
+            hero_col3.metric("Compute Time Saved (hrs:mins)", latest_job['Time Saved'])
             
             # Add a subtle footer for the secondary details
             st.caption(f"**Processed:** {latest_job['prediction_timestamp']} | **Actual End State:** {latest_job['Actual End State']} | **Job Duration:** {latest_job['duration']}")
@@ -320,11 +320,12 @@ else:
             'prediction_timestamp': 'Prediction Timestamp',
             'prediction': 'Prediction',
             'confidence_percentage': 'Model Confidence',
-            'duration': 'Actual Duration (HH:MM)',
+            'duration': 'Actual Duration (hrs:mins)',
             'id_job': 'Job ID',
             'allocated_cpus': "CPU's Used",
             'allocated_gpus': "GPU's Used",
-            'Prediction Correct': 'Prediction Accuracy'
+            'Prediction Correct': 'Prediction Accuracy',
+            'Time Saved' : 'Time Saved (hrs:mins)'
         }
         
         # Isolate the historical rows, select the ordered columns, and rename them
