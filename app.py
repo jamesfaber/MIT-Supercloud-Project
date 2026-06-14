@@ -180,7 +180,7 @@ else:
     
     # Create a copy so we don't mess up the chart data
     display_df = df.sort_values(by='prediction_timestamp', ascending=False).copy()
-    display_df = display_df.head(50)
+    display_df = display_df.head(100)
     
     # 1. Convert UTC to Local Eastern Time and make readable
     display_df['prediction_timestamp'] = pd.to_datetime(display_df['prediction_timestamp'])
