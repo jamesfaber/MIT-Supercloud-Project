@@ -44,13 +44,11 @@ else:
     # --- Top Level Metrics ---
     total_jobs = len(df)
     failed_jobs = int((df['prediction'] == 0).sum()) 
-#    success_rate = ((total_jobs - failed_jobs) / total_jobs) * 100 if total_jobs > 0 else 100
-
 
     # --- Calculate Deployed Model Accuracy (Using raw DynamoDB 'df') ---
     if 'prediction' in df.columns and 'state' in df.columns:
 
-    # FIX: Convert state column to numeric to resolve string vs integer mismatch
+    # Convert state column to numeric to resolve string vs integer mismatch
         # errors='coerce' turns non-numeric values into NaN
         df['state_numeric'] = pd.to_numeric(df['state'], errors='coerce')
 
@@ -81,8 +79,6 @@ else:
         total_evaluable = 0
         model_accuracy = 100.0
 
-
-
     # Calculate Total Hours Saved (Duration - 2 hours for predicted failures)
     # Only calculate if the column exists and has data
     if 'duration_hours' in df.columns:
@@ -93,8 +89,6 @@ else:
     else:
         total_hours_saved = 0.0
 
-
-
     # Expand to 4 columns to fit the new tracker
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Total Jobs Evaluated", total_jobs)
@@ -103,9 +97,6 @@ else:
     col4.metric("Total Compute Hours Saved", f"{int(round(total_hours_saved))} hrs", delta="⚡ Efficiency Gain")
 
     st.markdown("---")
-
-
-
 
     # --- VISUAL 1: Accuracy Drift Over Time ---
     # Convert timestamp to datetime if needed
@@ -139,16 +130,13 @@ else:
     # Keep only last 10 days
     recent_stats = daily_stats.tail(10)
 
-    # --- 2. Create Figures ---
+    # Create Figures
     # Trend Chart
     fig_drift = px.line(recent_stats, x='date', y='accuracy_rolling', 
                         title="Model Accuracy (7-Day Rolling Average)",
                         labels={'accuracy_rolling': 'Accuracy (%)', 'date': 'Date'},
                         markers=True)
     fig_drift.update_layout(yaxis_range=[0, 100], margin=dict(l=20, r=20, t=50, b=20))
-
-
-
 
 
     # --- VISUAL 2: Prediction Confidence Histogram ---
@@ -173,8 +161,6 @@ else:
         st.plotly_chart(fig_conf, use_container_width=True)
 
 
-
-
     # --- Raw Data Table Formatting ---
    # st.subheader("📋 Live Prediction Audit Trail")
     
@@ -182,7 +168,7 @@ else:
     display_df = df.sort_values(by='prediction_timestamp', ascending=False).copy()
     display_df = display_df.head(100)
     
-    # 1. Convert UTC to Local Eastern Time and make readable
+    # Convert UTC to Local Eastern Time and make readable
     display_df['prediction_timestamp'] = pd.to_datetime(display_df['prediction_timestamp'])
     
     # Tell pandas it's currently UTC, then convert to Eastern Time
@@ -193,10 +179,10 @@ else:
                                           .dt.tz_convert('US/Eastern')
                                           .dt.strftime('%Y-%m-%d %I:%M %p')) # Format as YYYY-MM-DD HH:MM AM/PM
     
-    # 2. Map predictions to strings
+    # Map predictions to strings
     display_df['prediction'] = display_df['prediction'].map({0: 'Job Failure', 1: 'Job Completed'})
     
-    # 3. Format Confidence Percentage as a whole number
+    # Format Confidence Percentage as a whole number
     if 'confidence_percentage' in display_df.columns:
         clean_conf = display_df['confidence_percentage'].astype(str).str.strip()
         clean_conf = clean_conf.str.replace('%', '', regex=False)
@@ -206,14 +192,13 @@ else:
             lambda x: f"{x:0.0f}%" if pd.notnull(x) else "0%"
         )
     
-    # 4. Format Duration to HH:MM
+    # Format Duration to HH:MM
     if 'duration_hours' in display_df.columns:
         display_df['duration'] = display_df['duration_hours'].apply(
             lambda x: f"{int(x):02d}:{int(round((x*60)%60)):02d}" if pd.notnull(x) else "00:00"
         )
         
-    
-    # 5.1 Rename state
+    # Rename state
     display_df = display_df.rename(columns={'state': 'Actual End State'})
 
     # Map cluster codes to readable Actual End States
@@ -226,14 +211,14 @@ else:
             11: "Job Failure (Out of Memory)",
             7: "Node Failed"
         }
-        # Force column to numeric integers first so the keys match perfectly
+
         display_df['Actual End State'] = pd.to_numeric(display_df['Actual End State'], errors='coerce')
         display_df['Actual End State'] = display_df['Actual End State'].map(status_mapping).fillna("Unknown State") 
 
     # --- CALCULATE ACCURACY STATUS ---
     def evaluate_prediction_accuracy(row):
-        pred = row['prediction']          # 'Failure' or 'Completed'
-        actual = row['Actual End State']  # mapped state text e.g., 'Job Completed'
+        pred = row['prediction']         
+        actual = row['Actual End State']  
 
         if "Cancelled" in actual:
             return "N/A ➖"
@@ -247,13 +232,11 @@ else:
 
     display_df['Prediction Correct'] = display_df.apply(evaluate_prediction_accuracy, axis=1)
     
-    # [NEW] Calculate and format Time Saved per job
+    # Calculate and format Time Saved per job
     if 'duration_hours' in display_df.columns and 'prediction' in display_df.columns:
         def calculate_row_time_saved(row):
             if row['Prediction Correct'] == "Incorrect ❌":
                 return "N/A"
-
-            # Remember: we already mapped prediction to 'Failure' or 'Completed' strings above
             if row['prediction'] == 'Job Failure' and pd.notnull(row['duration_hours']):
                 saved_hrs = row['duration_hours'] - 2
                 if saved_hrs <= 0:
@@ -265,11 +248,11 @@ else:
         display_df['Time Saved'] = display_df.apply(calculate_row_time_saved, axis=1)
 
 
-    # 6. Drop unwanted columns (source_path and the old duration_hours)
+    # Drop unwanted columns 
     cols_to_drop = ['source_file_path', 'duration_hours', 'Status']
     display_df = display_df.drop(columns=[c for c in cols_to_drop if c in display_df.columns], errors='ignore')
     
-    # 7. Enforce your specific column order
+    # Enforce your specific column order
     preferred_order = [
         'id_job', 
         'prediction_timestamp', 
@@ -287,7 +270,7 @@ else:
     remaining_cols = [c for c in display_df.columns if c not in existing_preferred] 
     display_df = display_df[existing_preferred + remaining_cols]
 
-    # --- NEW: LATEST JOB HERO SECTION ---
+    # --- LATEST JOB SECTION ---
     if not display_df.empty:
         # Slice the newest job (index 0) and the history (index 1 to end)
         latest_job = display_df.iloc[0]
@@ -307,7 +290,7 @@ else:
             hero_col2.metric("Model Confidence", latest_job['confidence_percentage'])
             hero_col3.metric("Compute Time Saved (hrs:mins)", latest_job['Time Saved'])
             
-            # Add a subtle footer for the secondary details
+            # Add a footer for the secondary details
             st.caption(f"**Processed:** {latest_job['prediction_timestamp']} | **Actual End State:** {latest_job['Actual End State']} | **Job Duration:** {latest_job['duration']}")
 
         st.markdown("<br>", unsafe_allow_html=True) # Add a little breathing room
