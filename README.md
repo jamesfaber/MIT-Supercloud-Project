@@ -1,6 +1,6 @@
 # ⚡ Datacenter Optimization Project
 
-### The purpose of this project is to apply data science tools to reduce datacenter electricity consumption. The folder structure is as follows:
+### The purpose of this project is to apply data science techniques to reduce datacenter electricity consumption. The folder structure is as follows:
 
 #### Code Folder: Contains all code written for this project, organized into 6 Jupyter Notebooks.
 
