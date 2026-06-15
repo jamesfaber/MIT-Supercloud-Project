@@ -2,7 +2,7 @@
 
 ### The purpose of this project is to help reduce datacenter electricity consumption. The folder structure is as follows:
 
-#### Code Folder: Contains all code written for this project in 6 Jupyter Notebooks.
+#### Code Folder: Contains all code written for this project, organized into 6 Jupyter Notebooks.
 
 #### Data Folder: Contains a data dictionary, and the final dataset that was used to train the machine learning model.
 
